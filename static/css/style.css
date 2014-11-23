@@ -1,0 +1,188 @@
+body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.4em;
+    background: #F6F5F5;
+    color: #333333;
+}
+
+ul {
+    list-style-type: none;
+}
+
+#todoapp{
+    width: 500px;
+    margin: 96px auto 40px;
+    background: white;
+    border: 1px solid #E4E4E4;
+    -moz-border-radius: 7px;
+    -webkit-border-radius: 7px;
+    -o-border-radius: 7px;
+    border-radius: 7px;
+}
+
+#todoapp h1 {
+    font-size: 36px;
+    font-weight: bold;
+    text-align: center;
+    padding: 20px 0 30px 0;
+    line-height: 1;
+    border-bottom: 1px dashed #E4E4E4;
+}
+
+#create-todo {
+    position: relative;
+    padding: 0 20px;
+}
+#create-todo input {
+    margin: 0 !important;
+    width: 279px;
+    height: 40px;
+    font-size: 14px;
+    font-family: inherit;
+    line-height: 0.5em;
+    border: 0;
+    outline: none;
+    padding: 0 10px;
+    border: 1px solid #E4E4E4;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -o-border-radius: 4px;
+    border-radius: 4px;
+}
+
+#create-todo button{
+    margin: 0 !important;
+    margin-left: 10px !important; 
+    width: 145px;
+    height: 40px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #464545;
+    border: 1px solid #E4E4E4;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -o-border-radius: 4px;
+    border-radius: 4px;
+    background: #EBEAE9;
+    background: -moz-linear-gradient(top, #EBEAE9 50%, #D7D6D5 50%);
+}
+
+#todo-list {
+    margin-top: 20px;
+    padding-left: 0px !important;
+    min-height: 275px;
+}
+
+#todo-list li {
+    padding: 20px;
+    position: relative;
+    font-size: 14px;
+    line-height: 1.1em;
+}
+
+#todo-list li:after {
+    content: "\0020";
+    display: block;
+    height: 0;
+    clear: both;
+    overflow: hidden;
+    visibility: hidden;
+}
+
+#todo-list li:nth-child(odd) {
+    background: #f4f7fa;
+}
+
+#todo-list li.editing {
+    padding: 0;
+    border-bottom: 0;
+}
+
+#todo-list .editing .display,
+#todo-list .edit {
+    display: none;
+}
+
+#todo-list .editing .edit {
+    display: block;
+}
+
+#todo-list .editing input {
+    width: 438px;
+    font-size: 14px;
+    font-family: inherit;
+    margin: 0;
+    line-height: 0.5em;
+    border: 0;
+    outline: none;
+    padding: 20px 20px 20px 40px;
+    border: 1px solid #E4E4E4;
+}
+
+#todo-list .check {
+    position: relative;
+    top: 0px;
+    margin: 0 10px 0 0px;
+    float: left;
+}
+
+#todo-list .done .todo-content {
+    text-decoration: line-through;
+    color: #777777;
+}
+
+#todo-list .todo-destroy {
+    position: absolute;
+    right: 5px;
+    top: 14px;
+    display: none;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    margin-left: 10px;
+}
+
+#todo-list li:hover .todo-destroy {
+    display: block;
+}
+
+#todo-list .todo-destroy:hover {
+    background-position: 0 -20px;
+}
+
+#todo-stats {
+    *zoom: 1;
+    margin-top: 10px;
+    color: #777777;
+    padding: 20px;
+    border-top: 1px dashed #E4E4E4;
+}
+
+#todo-stats:after {
+    content: "\0020";
+    display: block;
+    height: 0;
+    clear: both;
+    overflow: hidden;
+    visibility: hidden;
+}
+
+#todo-stats .todo-count {
+    float: left;
+}
+
+#todo-stats .todo-count .number {
+    font-weight: bold;
+    color: #333333;
+}
+
+#todo-stats .todo-markall {
+    float: right;
+}
+
+#todo-stats .todo-markall a {
+    color: #448CCB;
+    font-size: 12px;
+}
+

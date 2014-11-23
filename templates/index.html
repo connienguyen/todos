@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Tictail Todos</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script data-main="js/main" src="bower_components/requirejs/require.js"></script>
+</head>
+<body>
+
+<div id="todoapp">
+    <div class="title">
+	<h1>Todos</h1>
+    </div>
+
+    <div class="content">
+	<div id="create-todo">
+	    <input id="new-todo" placeholder="What needs to be done?" type="text" />
+	    <button id="todo-button">Add Todo</button>
+        </div>
+
+        <div id="todos" class="sortable">
+          <ul id="todo-list"></ul>
+        </div>
+
+	<div id="todo-stats"></div>
+    </div>
+</div>
+
+</body>
+</html>
+
