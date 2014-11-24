@@ -11,10 +11,6 @@ require.config({
 		'jquery'
 	    ],
 	    exports: 'Backbone'
-	},
-	backboneLocalstorage: {
-	    deps: ['backbone'],
-	    exports: 'Store'
 	}
     },
     paths: {
@@ -22,15 +18,18 @@ require.config({
 	jquerySortable: '../bower_components/html5sortable/jquery.sortable',
 	underscore: '../bower_components/underscore/underscore',
 	backbone: '../bower_components/backbone/backbone',
-	backboneLocalstorage: '../bower_components/backbone.localStorage/backbone.localStorage',
 	text: '../bower_components/requirejs-text/text'
     }
 });
 
 require([
+    'jquery',
     'views/app'
-], function (AppView) {
+], function ($,AppView) {
 
     // Initialize application view
-    new AppView();
+    var appView = new AppView();
+
+    // Fix to get the bottom stats to appear on first load
+    $(document).ready(appView.render);
 });

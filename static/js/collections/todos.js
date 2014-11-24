@@ -1,17 +1,15 @@
 define([
     'underscore', 
     'backbone', 
-    'backboneLocalstorage', 
     'models/todo'
-], function(_, Backbone, Store, Todo){
+], function(_, Backbone, Todo){
       
     var Todos = Backbone.Collection.extend({
 
 	// Reference the model corresponding with the collection
 	model: Todo,
 
-	// Save under the 'todos' namespace
-	localStorage: new Store("todos"),
+	url: '/todos/',
 
 	// Filter list of models in collection to those that are done
 	done: function() {

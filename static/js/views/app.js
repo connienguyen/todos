@@ -29,13 +29,12 @@ define([
 	initialize: function() {
 	    _.bindAll(this, 'addOne', 'addAll', 'render');
 
-	    this.input    = this.$("#new-todo");
+	    this.input = this.$("#new-todo");
 
 	    Todos.bind('add',     this.addOne);
 	    Todos.bind('reset',   this.addAll);
 	    Todos.bind('all',     this.render);
 
-	    Todos.fetch();
 	},
 
 	// Refreshing the statistics on the bottom of the App

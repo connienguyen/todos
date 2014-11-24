@@ -1,3 +1,8 @@
-# virtualenv
+# Python
+*.pyc
 
+# virtualenv
 venv/
+
+# databases
+data.db
