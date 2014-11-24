@@ -1,8 +1,6 @@
 from flask import Flask, render_template, jsonify, abort, request
 from models import db, Todo
 
-TODOS = []
-
 app = Flask(__name__, static_url_path='')
 app.debug = True
 

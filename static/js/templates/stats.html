@@ -1,9 +1,17 @@
 <span class="todo-count">
-    <span class="number"><%= remaining %></span>
-    <span class="word"><%= remaining == 1 ? 'item' : 'items' %></span> left.
+    <%= remaining %>
+    <%= remaining == 1 ? 'item' : 'items' %> left.
 </span>
 
-<span class="todo-markall">
-    <a href="#">Mark all as completed</a>
-</span>
+<% if ( total ) { %>
+    <% if ( remaining ) { %>
+	<span class="todo-markall">
+	    <a href="#">Mark all as completed</a>
+	</span>
+    <% } else { %>
+	<span class="clear-completed">
+	    <a href="#">Clear <%= done %> items</a>
+	</span>
+    <% } %>
+<% } %>
 

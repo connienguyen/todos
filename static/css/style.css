@@ -12,7 +12,7 @@ ul {
 
 #todoapp{
     width: 500px;
-    margin: 96px auto 40px;
+    margin: 96px auto;
     background: white;
     border: 1px solid #E4E4E4;
     -moz-border-radius: 7px;
@@ -40,7 +40,6 @@ ul {
     height: 40px;
     font-size: 14px;
     font-family: inherit;
-    line-height: 0.5em;
     border: 0;
     outline: none;
     padding: 0 10px;
@@ -66,6 +65,8 @@ ul {
     border-radius: 4px;
     background: #EBEAE9;
     background: -moz-linear-gradient(top, #EBEAE9 50%, #D7D6D5 50%);
+    background: -webkit-linear-gradient(top, #EBEAE9 50%, #D7D6D5 50%);
+    background: -o-linear-gradient(top, #EBEAE9 50%, #D7D6D5 50%);
 }
 
 #todo-list {
@@ -113,7 +114,6 @@ ul {
     font-size: 14px;
     font-family: inherit;
     margin: 0;
-    line-height: 0.5em;
     border: 0;
     outline: none;
     padding: 20px 20px 20px 40px;
@@ -140,7 +140,7 @@ ul {
     cursor: pointer;
     width: 20px;
     height: 20px;
-    margin-left: 10px;
+    margin auto 5px auto 10px;
 }
 
 #todo-list li:hover .todo-destroy {
@@ -170,19 +170,40 @@ ul {
 
 #todo-stats .todo-count {
     float: left;
-}
-
-#todo-stats .todo-count .number {
-    font-weight: bold;
-    color: #333333;
+    font-size: 12px;
+    font-color: #999999;
 }
 
 #todo-stats .todo-markall {
     float: right;
 }
 
-#todo-stats .todo-markall a {
+#todo-stats .todo-markall a,
+#todo-stats .todo-markall a:active {
+    color: #448CCB;
+    font-size: 12px;
+    text-decoration: none;
+}
+
+#todo-stats .todo-markall a:hover,
+#todo-stats .todo-markall a:focus {
+    text-decoration: underline;
+}
+
+#todo-stats .clear-completed {
+    float: right;
+}
+
+#todo-stats .clear-completed a{
     color: #448CCB;
     font-size: 12px;
 }
 
+.sortable-placeholder {
+    content: "test";
+    border: 1px dashed #E4E4E4;
+}
+
+.sortable-dragging {
+    opacity: 0.5;
+}

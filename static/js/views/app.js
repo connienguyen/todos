@@ -4,7 +4,8 @@ define([
     'backbone',
     'collections/todos',
     'views/todos',
-    'text!templates/stats.html'
+    'text!templates/stats.html',
+    'jqueryUI'
 ], function($, _, Backbone, Todos, TodoView, statsTemplate){
     
     var AppView = Backbone.View.extend({
@@ -20,7 +21,9 @@ define([
 	    "keypress #new-todo":	"createOnEnter",
 	    "click .todo-clear a":	"clearCompleted",
 	    "click #todo-button":	"createOnClick",
-	    "click .todo-markall a":	"markAllCompleted"
+	    "click .todo-markall a":	"markAllCompleted",
+	    "click .clear-completed a":	"clearCompleted",
+	    "listupdate":		"listUpdate"
 	},
 
 	// Bind relevents on the Todos collection when items are added
@@ -31,15 +34,22 @@ define([
 
 	    this.input = this.$("#new-todo");
 
+	    // Initialize jquery ui sortable plugin
+	    var view = this;
+	    this.$("#todo-list").sortable({
+		placeholder: "sortable-placeholder",
+		update: function(e, ui) {
+		    view.listUpdate();
+		}
+	    });
+
 	    Todos.bind('add',     this.addOne);
 	    Todos.bind('reset',   this.addAll);
 	    Todos.bind('all',     this.render);
-
 	},
 
 	// Refreshing the statistics on the bottom of the App
 	render: function() {
-	    var done = Todos.done().length;
 	    this.$('#todo-stats').html(this.statsTemplate({
 		total: Todos.length,
 		done: Todos.done().length,
@@ -93,6 +103,15 @@ define([
 	markAllCompleted: function() {
 	    _.each(Todos.remaining(), function(todo) {todo.toggle();});
 	    return false;
+	},
+
+	// Updates the list of sortable items
+	listUpdate: function() {
+	    Todos.each(function(todo) {
+		//should update order in here	
+	    });	    
+	    Todos.sort({silent: true});
+	    this.render();
 	}
   });
 
