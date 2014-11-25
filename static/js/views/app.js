@@ -13,6 +13,9 @@ define([
 	// Bind view to #todoapp in HTML
 	el: $("#todoapp"),
 
+	// Maintain a list of TodoViews
+	viewTodos: [],
+
 	// Stats template to appear at bottom of the app
 	statsTemplate: _.template(statsTemplate),
 
@@ -26,11 +29,11 @@ define([
 	    "listupdate":		"listUpdate"
 	},
 
-	// Bind relevents on the Todos collection when items are added
+	// Bind relevents events on the Todos collection when items are added
 	// or changed. Start by loading any already existing todos from
 	// localStorage
 	initialize: function() {
-	    _.bindAll(this, 'addOne', 'addAll', 'render');
+	    _.bindAll(this, 'addOne', 'addAll', 'render', 'listUpdate');
 
 	    this.input = this.$("#new-todo");
 
@@ -62,6 +65,7 @@ define([
 	addOne: function(todo) {
 	    var view = new TodoView({model: todo});
 	    this.$("#todo-list").append(view.render().el);
+	    this.viewTodos.push(view);
 	},
 
 	// Add all items in Todos at once
@@ -107,11 +111,12 @@ define([
 
 	// Updates the list of sortable items
 	listUpdate: function() {
-	    Todos.each(function(todo) {
-		//should update order in here	
-	    });	    
-	    Todos.sort({silent: true});
-	    this.render();
+	    _.each(this.viewTodos, function(todoview) {
+		todoview.model.save(
+		    {order: todoview.$el.index()},
+		    {put: true});
+	    });
+	    Todos.sort({silent:true});
 	}
   });
 
