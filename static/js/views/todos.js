@@ -18,7 +18,8 @@ define([
 	    "click .check"              : "toggleDone",
 	    "dblclick div.todo-content" : "edit",
 	    "click span.todo-destroy"   : "clear",
-	    "keypress .todo-input"      : "updateOnEnter"
+	    "keypress .todo-input"      : "updateOnEnter",
+	    "drop"			: "drop"
 	},
 
 	// Initialize a one-to-one correspondence between a Todo model and
@@ -65,6 +66,13 @@ define([
 	// On Enter keypress, save changes to editing item
 	updateOnEnter: function(e) {
 	    if (e.keyCode == 13) this.close();
+	},
+
+	// User has finished dragging this item
+	drop: function(ev, index) {
+	    if(index != this.model.get('order')) {
+		this.$el.trigger('update-sort', [this.model, index]);
+	    }
 	},
 
 	// Remove this view

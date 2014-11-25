@@ -21,9 +21,10 @@ define([
 	    return this.without.apply(this, this.done());
 	},
 
-	// Keep the Todo models in order of insertion
+	// Keep the Todo models in order of insertion. Indexes at 0
+	// to match jQuery <li> index
 	nextOrder: function() {
-	    if (!this.length) return 1;
+	    if (!this.length) return 0;
 	    return this.last().get('order') + 1;
 	},
 

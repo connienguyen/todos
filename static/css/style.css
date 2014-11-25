@@ -204,6 +204,7 @@ ul {
     border: 1px dashed #E4E4E4;
 }
 
-.sortable-dragging {
-    opacity: 0.5;
+.sortable-draggable {
+    opacity: 0.75;
+    filter: Alpha(opacity=75);
 }

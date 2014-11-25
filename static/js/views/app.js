@@ -13,27 +13,25 @@ define([
 	// Bind view to #todoapp in HTML
 	el: $("#todoapp"),
 
-	// Maintain a list of TodoViews
-	viewTodos: [],
-
 	// Stats template to appear at bottom of the app
 	statsTemplate: _.template(statsTemplate),
 
 	// Events for creating and clearing Todos
 	events: {
-	    "keypress #new-todo":	"createOnEnter",
-	    "click .todo-clear a":	"clearCompleted",
-	    "click #todo-button":	"createOnClick",
-	    "click .todo-markall a":	"markAllCompleted",
-	    "click .clear-completed a":	"clearCompleted",
-	    "listupdate":		"listUpdate"
+	    "keypress #new-todo"	: "createOnEnter",
+	    "click .todo-clear a"	: "clearCompleted",
+	    "click #todo-button"	: "createOnClick",
+	    "click .todo-markall a"	: "markAllCompleted",
+	    "click .clear-completed a"	: "clearCompleted",
+	    "update-sort"		: "updateSort"
 	},
 
 	// Bind relevents events on the Todos collection when items are added
 	// or changed. Start by loading any already existing todos from
 	// localStorage
 	initialize: function() {
-	    _.bindAll(this, 'addOne', 'addAll', 'render', 'listUpdate');
+	    //Bind functions to view
+	    _.bindAll(this, 'addOne', 'addAll', 'render');
 
 	    this.input = this.$("#new-todo");
 
@@ -41,8 +39,12 @@ define([
 	    var view = this;
 	    this.$("#todo-list").sortable({
 		placeholder: "sortable-placeholder",
-		update: function(e, ui) {
-		    view.listUpdate();
+		start: function(e, ui) {
+		    ui.item.addClass("sortable-draggable");
+		},
+		stop: function(e, ui) {
+		    ui.item.removeClass("sortable-draggable");
+		    ui.item.trigger('drop', ui.item.index());
 		}
 	    });
 
@@ -58,6 +60,10 @@ define([
 		done: Todos.done().length,
 		remaining: Todos.remaining().length
 	    }));
+
+	    this.$("#todo-list").children().remove();
+	    Todos.each(this.addOne, this);
+	    return this;
 	},
 
 	// Add a single todo to the list by create a view for it and
@@ -65,7 +71,6 @@ define([
 	addOne: function(todo) {
 	    var view = new TodoView({model: todo});
 	    this.$("#todo-list").append(view.render().el);
-	    this.viewTodos.push(view);
 	},
 
 	// Add all items in Todos at once
@@ -109,36 +114,27 @@ define([
 	    return false;
 	},
 
-	// Updates the list of sortable items
-	listUpdate: function() {
+	// Updates the list of sortable items without using additional array
+	updateSort: function(e, model, position) {
+	    Todos.remove(model);
 
-	    var view = this;
-	    _.each(this.viewTodos, function(todoview) {
-		// todoview has been removed from viewTodos
-		if(typeof todoview === 'undefined') {
-		    return true;
-		};
-	    
-		var orderNew = todoview.$el.index();
-		var orderOld = todoview.model.get('order');
-
-		// This item has been removed from the list!
-		// Remove item from viewTodos go to next iteration
-		if(orderNew < 0) {
-		    var index = view.viewTodos.indexOf(todoview);
-		    view.viewTodos.splice(index, 1);
-		    return true;
+	    // Shifts order of items in collection down if past position 
+	    Todos.each(function(model, index) {
+		var orderNew = index;
+		if( index >= position) {
+		    orderNew += 1;
 		}
-
-		// Try to reduce the number of PUT requests
-		if(orderNew != orderOld) {
-		    todoview.model.save(
-			{order: todoview.$el.index()},
-			{put: true});
-		} 
+		// Only update if order is not the same
+		if( orderNew != model.get('order')) {
+		    model.save({order: orderNew}, {put: true});
+		}
 	    });
 
-	    Todos.sort({silent:true});
+	    // Finally add dragged & dropped model to its new position
+	    Todos.add(model, {at: position});
+	    model.save({order: position}, {put: true});	    
+
+	    this.render();
 	}
   });
 
