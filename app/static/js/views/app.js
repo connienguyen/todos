@@ -41,8 +41,12 @@ define([
 		placeholder: "sortable-placeholder",
 		start: function(e, ui) {
 		    ui.item.addClass("sortable-draggable");
+		    ui.item.find(".todo-destroy").hide();
+		    ui.item.find(".todo-content").after('<span class="todo-drag"></span>');
 		},
 		stop: function(e, ui) {
+		    ui.item.find(".todo-drag").remove();
+		    ui.item.find(".todo-destroy").show();
 		    ui.item.removeClass("sortable-draggable");
 		    ui.item.trigger('drop', ui.item.index());
 		}
