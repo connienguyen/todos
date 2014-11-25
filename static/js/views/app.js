@@ -111,11 +111,33 @@ define([
 
 	// Updates the list of sortable items
 	listUpdate: function() {
+
+	    var view = this;
 	    _.each(this.viewTodos, function(todoview) {
-		todoview.model.save(
-		    {order: todoview.$el.index()},
-		    {put: true});
+		// todoview has been removed from viewTodos
+		if(typeof todoview === 'undefined') {
+		    return true;
+		};
+	    
+		var orderNew = todoview.$el.index();
+		var orderOld = todoview.model.get('order');
+
+		// This item has been removed from the list!
+		// Remove item from viewTodos go to next iteration
+		if(orderNew < 0) {
+		    var index = view.viewTodos.indexOf(todoview);
+		    view.viewTodos.splice(index, 1);
+		    return true;
+		}
+
+		// Try to reduce the number of PUT requests
+		if(orderNew != orderOld) {
+		    todoview.model.save(
+			{order: todoview.$el.index()},
+			{put: true});
+		} 
 	    });
+
 	    Todos.sort({silent:true});
 	}
   });
