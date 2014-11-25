@@ -28,4 +28,4 @@ $ python
 
 To start the app, run `$ python run.py` from the command line. The app can now be viewed on your local machine at `127.0.0.1:8002`.
 
-A live version of this app (of this [commit](https://github.com/connienguyen/todos/commit/70ec807d810ee8c912456ac1e70c3b90637fbaac)) is deployed at [http://todo.connienguyen.me]
+A live version of this app is deployed at [http://todo.connienguyen.me]
