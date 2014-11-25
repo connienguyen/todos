@@ -139,6 +139,7 @@ define([
 	    model.save({order: position}, {put: true});	    
 
 	    this.render();
+	    this.$("#todo-list").sortable("option", "disabled", false);
 	}
   });
 

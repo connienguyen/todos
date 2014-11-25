@@ -71,6 +71,7 @@ define([
 	// User has finished dragging this item
 	drop: function(ev, index) {
 	    if(index != this.model.get('order')) {
+		this.$el.parent().sortable("option", "disabled", true);
 		this.$el.trigger('update-sort', [this.model, index]);
 	    }
 	},
