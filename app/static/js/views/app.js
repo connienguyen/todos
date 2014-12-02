@@ -18,9 +18,9 @@ define([
 
 	// Events for creating and clearing Todos
 	events: {
-	    "keypress #new-todo"	: "createOnEnter",
+	    "keypress #new-todo"	: "createTodo",
 	    "click .todo-clear a"	: "clearCompleted",
-	    "click #todo-button"	: "createOnClick",
+	    "click #todo-button"	: "createTodo",
 	    "click .todo-markall a"	: "markAllCompleted",
 	    "click .clear-completed a"	: "clearCompleted",
 	    "update-sort"		: "updateSort"
@@ -55,6 +55,9 @@ define([
 	    Todos.bind('add',     this.addOne);
 	    Todos.bind('reset',   this.addAll);
 	    Todos.bind('all',     this.render);
+
+	    // Initial render if user's first visit to page
+	    this.render();
 	},
 
 	// Refreshing the statistics on the bottom of the App
@@ -91,17 +94,14 @@ define([
 	    };
 	},
 
-	// On the event that the keypress is Enter, create a new Todo. Also
-	// check that the input is not empty
-	createOnEnter: function(e) {
-	    if (e.keyCode != 13 || !this.input.val().trim()) return;
-	    Todos.create(this.newAttributes());
-	    this.input.val('');
-	},
-
-	// Adds new todo item on button click if input is not empty
-	createOnClick: function() {
-	    if(!this.input.val().trim()) return;
+	// On the event that the event was a click on #new-todo or an
+	// Enter keypress, create a new Todo. Also check that input is not
+	// empty
+	createTodo: function(e) {
+		if( e.type == "keypress") {
+			if (e.keyCode != 13) return;
+		}
+		if(!this.input.val().trim()) return;
 	    Todos.create(this.newAttributes());
 	    this.input.val('');
 	},
